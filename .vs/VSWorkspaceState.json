@@ -1,16 +1,16 @@
 {
   "ExpandedNodes": [
     "",
+    "\\.angular",
     "\\src",
     "\\src\\app",
-    "\\src\\app\\add-user",
-    "\\src\\app\\home",
-    "\\src\\app\\models",
-    "\\src\\app\\register",
+    "\\src\\app\\login",
+    "\\src\\app\\station-details",
+    "\\src\\app\\station-list",
     "\\src\\app\\user-details",
     "\\src\\app\\users-list",
     "\\src\\app\\_services"
   ],
-  "SelectedNode": "\\src\\app\\add-user\\add-user.component.html",
+  "SelectedNode": "\\src\\index.html",
   "PreviewInSolutionExplorer": false
 }
