@@ -1,0 +1,16 @@
+<div class="list row">
+  <div class="col-md-6">
+    <h4>Stations List</h4>
+    <ul class="list-group">
+      <li class="list-group-item"
+          *ngFor="let station of stations; let i = index"
+          [class.active]="i == currentIndex"
+          (click)="setActiveStation(station, i)">
+        {{ station.name }}
+      </li>
+    </ul>
+  </div>
+  <div class="col-md-6">
+    <app-station-details [viewMode]="true" [currentStation]="currentStation"></app-station-details>
+  </div>
+</div>

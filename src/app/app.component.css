@@ -1,0 +1,24 @@
+.app-container {
+  margin: 0 auto;
+  width: 100%;
+}
+
+@media only screen and (max-width: 1024px) {
+  .app-container {
+    width: 700px;
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  .app-container {
+    width: 600px;
+  }
+}
+
+@media only screen and (max-width: 425px) {
+  .app-container {
+    display: block;
+    width: 300px;
+    padding-top: 115px;
+  }
+}

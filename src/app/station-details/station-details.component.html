@@ -1,0 +1,53 @@
+<div *ngIf="viewMode; else editable">
+  <div *ngIf="currentStation.id">
+    <h4>Station</h4>
+    <div>
+      <label><strong>Name:</strong></label> {{ currentStation.name }}
+    </div>
+    <div>
+      <label><strong>Comment:</strong></label>
+      {{ currentStation.comment }}
+    </div>
+    <a class="badge badge-warning"
+       routerLink="/stations/{{ currentStation.id }}">
+      Edit
+    </a>
+  </div>
+  <div *ngIf="!currentStation">
+    <br />
+    <p>Please click on a Station...</p>
+  </div>
+</div>
+<ng-template #editable>
+  <div *ngIf="currentStation.id" class="edit-form">
+    <h4>Station</h4>
+    <form>
+      <div class="form-group">
+        <label for="name">Name</label>
+        <input type="text"
+               class="form-control"
+               id="name"
+               [(ngModel)]="currentStation.name"
+               name="name" />
+      </div>
+      <div class="form-group">
+        <label for="comment">Comment</label>
+        <input type="text"
+               class="form-control"
+               id="comment"
+               [(ngModel)]="currentStation.comment"
+               name="comment" />
+      </div>
+    </form>
+    <button class="badge badge-danger mr-2" (click)="deleteStation()">
+      Delete
+    </button>
+    <button type="submit"
+            class="badge badge-success mb-2"
+            (click)="updateStation()">
+      Update
+    </button>
+    <button class="badge badge-success mb-2" style="margin-left: 10px;" (click)="toMain()">Return to main page</button>
+    <p>{{ message }}</p>
+  </div>
+</ng-template>

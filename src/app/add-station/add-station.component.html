@@ -1,0 +1,28 @@
+<div>
+  <div class="submit-form">
+    <div *ngIf="!submitted">
+      <div class="form-group">
+        <label for="name">Name</label>
+        <input class="form-control"
+               id="name"
+               required
+               [(ngModel)]="station.name"
+               name="name" />
+      </div>
+      <div class="form-group">
+        <label for="comment">Comment</label>
+        <input class="form-control"
+               id="comment"
+               required
+               [(ngModel)]="station.comment"
+               name="comment" />
+      </div>
+      <button (click)="saveStation()" class="btn btn-success">Submit</button>
+    </div>
+    <div *ngIf="submitted">
+      <h4>Station was added successfully!</h4>
+      <button class="btn btn-success" (click)="newStation()">Add</button>
+      <button class="btn btn-success" style="margin-left: 10px;" (click)="toMain()">Return to main page</button>
+    </div>
+  </div>
+</div>
