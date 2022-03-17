@@ -14,7 +14,6 @@ export class AppComponent {
   }
   ngOnInit() {
     this.tokenStorageService.getCartItemCount().subscribe(len => {
-      console.log(len) // your new cart length here
       if (localStorage.getItem('loggedIn') === 'true') {
         this.isLoggedIn = true;
       } else {

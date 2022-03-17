@@ -7,19 +7,19 @@ const USER_KEY = 'auth-user';
   providedIn: 'root'
 })
 export class TokenStoreService {
-  private cartItemCount = new BehaviorSubject<number>(0);
+  private ItemCount = new BehaviorSubject<number>(0);
   cartItem = [];
   constructor() { }
   signOut(): void {
     window.sessionStorage.clear();
   }
   getCartItemCount() {
-    return this.cartItemCount.asObservable();
+    return this.ItemCount.asObservable();
   }
   public saveToken(token: string) {
     window.sessionStorage.removeItem(TOKEN_KEY);
     window.sessionStorage.setItem(TOKEN_KEY, token);
-    this.cartItemCount.next(localStorage.length);
+    this.ItemCount.next(localStorage.length);
   }
   public getToken(): string | null {
     return window.sessionStorage.getItem(TOKEN_KEY);
