@@ -1,5 +1,5 @@
 export class Station {
   id?: any;
-  name?: string;
-  comment?: string;
+  name?: string | null;
+  comment?: string | null;
 }

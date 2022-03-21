@@ -1,6 +1,10 @@
 <div class="list row">
   <div class="col-md-6">
-    <h4>Users List</h4>
+    <h4>Users List <span>
+  <button class="badge badge-success mb-2" style="margin: 10px;" (click)="toMain()">Home</button>
+    </span></h4>
+    <!-- <div style="float: right;">
+    </div> -->
     <ul class="list-group">
       <li class="list-group-item"
           *ngFor="let user of users; let i = index"

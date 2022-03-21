@@ -10,11 +10,14 @@ import { Router } from '@angular/router';
   styleUrls: ['./add-station.component.css']
 })
 export class AddStationComponent implements OnInit {
-  station: Station = {
-    name: '',
-    comment: ''
+  form: any = {
+    name: null,
+    comment: null
   };
   submitted = false;
+  isSuccessful = false;
+  isCreateFailed = false;
+  errorMessage = '';
 
   constructor(private userService: UserService, private router: Router) { }
 
@@ -22,23 +25,26 @@ export class AddStationComponent implements OnInit {
   }
 
   saveStation() {
-    const data = {
-      name: this.station.name,
-      comment: this.station.comment
-    };
-    this.userService.createStation(data)
+    const { name, comment } = this.form;
+    this.userService.createStation(name, comment)
       .subscribe({
         next: (res) => {
           this.submitted = true;
+          this.isSuccessful = true;
+          this.isCreateFailed = false;
         },
-        error: (e) => console.error(e)
+        error: err => {
+          this.errorMessage = err.error.error;
+          this.isCreateFailed = true;
+        }
       });
   }
   newStation() {
     this.submitted = false;
-    this.station = {
-      name: '',
-      comment: ''
+    this.isSuccessful = false;
+    this.form = {
+      name: null,
+      comment: null
     };
   }
 

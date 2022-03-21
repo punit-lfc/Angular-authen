@@ -1,28 +1,48 @@
 <div>
   <div class="submit-form">
     <div *ngIf="!submitted">
+      <form *ngIf="!isSuccessful"
+          name="form"
+          (ngSubmit)="f.form.valid && saveStation()"
+          #f="ngForm"
+          novalidate>
       <div class="form-group">
         <label for="name">Name</label>
-        <input class="form-control"
-               id="name"
+        <input type="text"
+               class="form-control"
+               name="name"
                required
-               [(ngModel)]="station.name"
-               name="name" />
+               [(ngModel)]="form.name"
+               #name="ngModel" />
+               <div class="alert-danger" *ngIf="name.errors && f.submitted">
+                <div *ngIf="name.errors['required']">Name is required</div>
+              </div>
       </div>
       <div class="form-group">
         <label for="comment">Comment</label>
-        <input class="form-control"
-               id="comment"
-               required
-               [(ngModel)]="station.comment"
-               name="comment" />
+        <input type="text"
+               class="form-control"
+               name="comment"
+               [(ngModel)]="form.comment"
+               #comment="ngModel" />
+               <!-- <div class="alert-danger" *ngIf="comment.errors && f.submitted">
+                <div *ngIf="comment.errors['required']">Comment is required</div>
+              </div> -->
       </div>
-      <button (click)="saveStation()" class="btn btn-success">Submit</button>
+      <div class="form-group">
+        <button class="btn btn-primary">Submit</button>
+      </div>
+      <div class="alert alert-warning" *ngIf="f.submitted && isCreateFailed">
+        New station creation failed!<br />{{ errorMessage }}
+      </div>
+  </form>
+      <!-- <button (click)="saveStation()" class="btn btn-success">Submit</button> -->
+      <button class="btn btn-success" (click)="toMain()">Home</button>
     </div>
     <div *ngIf="submitted">
       <h4>Station was added successfully!</h4>
       <button class="btn btn-success" (click)="newStation()">Add</button>
-      <button class="btn btn-success" style="margin-left: 10px;" (click)="toMain()">Return to main page</button>
+      <button class="btn btn-success" style="margin-left: 10px;" (click)="toMain()">Home</button>
     </div>
   </div>
 </div>

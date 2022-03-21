@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { User } from 'src/app/models/user.model';
 import { UserService } from 'src/app/_services/user.service';
+import { ActivatedRoute, Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-users-list',
@@ -12,7 +14,9 @@ export class UsersListComponent implements OnInit {
   currentUser: User = {};
   currentIndex = -1;
 
-  constructor(private userService: UserService) { }
+  constructor(private userService: UserService,
+    private route: ActivatedRoute,
+    private router: Router) { }
 
   ngOnInit() {
     this.retrieveUsers();
@@ -22,7 +26,7 @@ export class UsersListComponent implements OnInit {
     this.userService.getUsers()
       .subscribe({
         next: (data) => {
-          this.users = data;
+          this.users = data.filter(user => user.login !== localStorage.getItem('logIn'));
         },
         error: (e) => console.error(e)
       });
@@ -36,5 +40,9 @@ export class UsersListComponent implements OnInit {
   setActiveUser(user: User, index: number): void {
     this.currentUser = user;
     this.currentIndex = index;
+  }
+
+  toMain() {
+    this.router.navigate(['/', 'profile']);
   }
 }

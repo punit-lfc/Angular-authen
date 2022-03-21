@@ -1,44 +1,71 @@
 <div>
   <div class="submit-form">
     <div *ngIf="!submitted">
+      <form *ngIf="!isSuccessful"
+          name="form"
+          (ngSubmit)="f.form.valid && saveUser()"
+          #f="ngForm"
+          novalidate>
       <div class="form-group">
         <label for="name">Name</label>
-        <input class="form-control"
-               id="name"
+        <input type="text"
+               class="form-control"
+               name="name"
                required
-               [(ngModel)]="user.name"
-               name="name"/>
+               [(ngModel)]="form.name"
+               #name="ngModel" />
+               <div class="alert-danger" *ngIf="name.errors && f.submitted">
+                <div *ngIf="name.errors['required']">Name is required</div>
+              </div>
       </div>
       <div class="form-group">
         <label for="comment">Comment</label>
-        <input class="form-control"
-               id="comment"
-               required
-               [(ngModel)]="user.comment"
-               name="comment"/>
+        <input type="text"
+               class="form-control"
+               name="comment"
+               [(ngModel)]="form.comment"
+               #comment="ngModel" />
+               <!-- <div class="alert-danger" *ngIf="comment.errors && f.submitted">
+                <div *ngIf="comment.errors['required']">Comment is required</div>
+              </div> -->
       </div>
       <div class="form-group">
         <label for="login">Login</label>
-        <input class="form-control"
-               id="login"
+        <input type="text"
+               class="form-control"
+               name="login"
                required
-               [(ngModel)]="user.login"
-               name="login"/>
+               [(ngModel)]="form.login"
+               #login="ngModel" />
+               <div class="alert-danger" *ngIf="login.errors && f.submitted">
+                <div *ngIf="login.errors['required']">Login is required</div>
+              </div>
       </div>
       <div class="form-group">
         <label for="password">Password</label>
-        <input class="form-control"
-               id="password"
+        <input type="text"
+               class="form-control"
+               name="password"
                required
-               [(ngModel)]="user.password"
-               name="password"/>
+               [(ngModel)]="form.password"
+               #password="ngModel" />
+               <div class="alert-danger" *ngIf="password.errors && f.submitted">
+                <div *ngIf="password.errors['required']">Password is required</div>
+              </div>
       </div>
-      <button (click)="saveUser()" class="btn btn-success">Submit</button>
+      <div class="form-group">
+        <button class="btn btn-primary">Submit</button>
+      </div>
+      <div class="alert alert-warning" *ngIf="f.submitted && isCreateFailed">
+        New user creation failed!<br />{{ errorMessage }}
+      </div>
+  </form>
+  <button class="btn btn-success" (click)="toMain()">Home</button>
     </div>
     <div *ngIf="submitted">
-      <h4>user was submitted successfully!</h4>
+      <h4>User was added successfully!</h4>
       <button class="btn btn-success" (click)="newUser()">Add</button>
-      <button class="btn btn-success" style="margin-left: 10px;" (click)="toMain()">Return to main page</button>
+      <button class="btn btn-success" style="margin-left: 10px;" (click)="toMain()">Home</button>
     </div>
   </div>
 </div>

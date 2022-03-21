@@ -37,6 +37,7 @@ export class LoginComponent implements OnInit {
           this.tokenStorage.saveToken(data.user_jwt);
           this.isLoginFailed = false;
           this.isLoggedIn = true;
+          localStorage.setItem('logIn', login);
           this.router.navigate(['/', 'profile']);
         }
       },

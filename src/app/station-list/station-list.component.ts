@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Station } from 'src/app/models/station.model';
 import { UserService } from 'src/app/_services/user.service';
-
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-station-list',
@@ -13,7 +13,9 @@ export class StationListComponent implements OnInit {
   currentStation: Station = {};
   currentIndex = -1;
 
-  constructor(private userService: UserService) { }
+  constructor(private userService: UserService,
+    private route: ActivatedRoute,
+    private router: Router) { }
 
   ngOnInit() {
     this.retrieveStations();
@@ -37,5 +39,9 @@ export class StationListComponent implements OnInit {
   setActiveStation(station: Station, index: number): void {
     this.currentStation = station;
     this.currentIndex = index;
+  }
+
+  toMain() {
+    this.router.navigate(['/', 'profile']);
   }
 }

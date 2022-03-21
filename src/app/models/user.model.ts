@@ -1,7 +1,7 @@
 export class User {
   id?: any;
-  name?: string;
-  comment?: string;
-  login?: string;
-  password?: string;
+  name?: string | null;
+  comment?: string | null;
+  login?: string | null;
+  password?: string | null;
 }

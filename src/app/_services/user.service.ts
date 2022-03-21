@@ -18,8 +18,13 @@ export class UserService {
   getUser(id: any): Observable<User> {
     return this.http.get(`${base_URL}/${id}`);
   }
-  createUser(data: any): Observable<any> {
-    return this.http.post(base_URL, data);
+  createUser(name: any, comment: any, login: any, password: any): Observable<any> {
+    return this.http.post(base_URL, {
+      name,
+      comment,
+      login,
+      password
+    });
   }
   updateUser(id: any, data: any): Observable<any> {
     return this.http.patch(`${base_URL}/${id}`, data);
@@ -33,8 +38,11 @@ export class UserService {
   getStation(id: any): Observable<User> {
     return this.http.get(`${base_URL1}/${id}`);
   }
-  createStation(data: any): Observable<any> {
-    return this.http.post(base_URL1, data);
+  createStation(name: string, comment: string): Observable<any> {
+    return this.http.post(base_URL1, {
+      name,
+      comment
+    });
   }
   updateStation(id: any, data: any): Observable<any> {
     return this.http.patch(`${base_URL1}/${id}`, data);

@@ -2,6 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { Station } from 'src/app/models/station.model';
 import { UserService } from 'src/app/_services/user.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import * as e from 'express';
 
 
 @Component({
@@ -15,8 +16,13 @@ export class StationDetailsComponent implements OnInit {
     name: '',
     comment: ''
   };
+  form = new Station;
 
   message = '';
+  isNameInvalid = false;
+  isLoginInvalid = false;
+  isPasswordInvalid = false;
+  isSuccessful = false;
 
   constructor(private userService: UserService,
     private route: ActivatedRoute,
@@ -34,24 +40,36 @@ export class StationDetailsComponent implements OnInit {
       .subscribe({
         next: (data) => {
           this.currentStation = data;
+          this.form.id = this.currentStation.id;
+          this.form.name = this.currentStation.name;
+          this.form.comment = this.currentStation.comment;
         },
         error: (e) => console.error(e)
       });
   }
 
+  checkFields() {
+    if (this.form.name !== '') {
+      this.updateStation();
+    }
+  }
+
   updateStation() {
     this.message = '';
-    this.userService.updateStation(this.currentStation.id, this.currentStation)
+    const { name, comment } = this.form;
+    this.userService.updateStation(this.form.id, this.form)
       .subscribe({
         next: (res) => {
           this.message = res.message ? res.message : 'This station was updated successfully!';
+          this.isSuccessful = true;
           this.router.navigate(['/stations']);
         },
         error: (e) => console.error(e)
       });
   }
+
   deleteStation() {
-    this.userService.deleteStation(this.currentStation.id)
+    this.userService.deleteStation(this.form.id)
       .subscribe({
         next: (res) => {
           this.router.navigate(['/stations']);

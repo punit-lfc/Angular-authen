@@ -9,13 +9,16 @@ import { Router } from '@angular/router';
   styleUrls: ['./add-user.component.css']
 })
 export class AddUserComponent implements OnInit {
-  user: User = {
-    name: '',
-    comment: '',
-    login: '',
-    password: ''
+  form: User = {
+    name: null,
+    comment: null,
+    login: null,
+    password: null
   };
   submitted = false;
+  isSuccessful = false;
+  isCreateFailed = false;
+  errorMessage = '';
 
   constructor(private userService: UserService, private router: Router) { }
 
@@ -23,27 +26,28 @@ export class AddUserComponent implements OnInit {
   }
 
   saveUser() {
-    const data = {
-      name: this.user.name,
-      comment: this.user.comment,
-      login: this.user.login,
-      password: this.user.password
-    };
-    this.userService.createUser(data)
+    const { name, comment, login, password } = this.form;
+    this.userService.createUser(name, comment, login, password)
       .subscribe({
         next: (res) => {
           this.submitted = true;
+          this.isSuccessful = true;
+          this.isCreateFailed = false;
         },
-        error: (e) => console.error(e)
+        error: err => {
+          this.errorMessage = err.error.error;
+          this.isCreateFailed = true;
+        }
       });
   }
   newUser() {
     this.submitted = false;
-    this.user = {
-      name: '',
-      comment: '',
-      login: '',
-      password: ''
+    this.isSuccessful = false;
+    this.form = {
+      name: null,
+      comment: null,
+      login: null,
+      password: null
     };
   }
 

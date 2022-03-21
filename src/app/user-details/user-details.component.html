@@ -21,49 +21,67 @@
 <ng-template #editable>
   <div *ngIf="currentUser.id" class="edit-form">
     <h4>User</h4>
-    <form>
+    <form *ngIf="!isSuccessful"
+    name="form"
+    (ngSubmit)="f.form.valid && checkFields()"
+    #f="ngForm"
+    novalidate>
       <div class="form-group">
         <label for="name">Name</label>
         <input type="text"
                class="form-control"
-               id="name"
-               [(ngModel)]="currentUser.name"
-               name="name" />
+               name="name"
+               [(ngModel)]="form.name"
+               required
+               #name="ngModel" />
+               <div class="alert-danger" *ngIf="name.errors && f.submitted">
+                <div *ngIf="name.errors['required']">Name is required</div>
+              </div>
       </div>
       <div class="form-group">
         <label for="comment">Comment</label>
         <input type="text"
                class="form-control"
-               id="comment"
-               [(ngModel)]="currentUser.comment"
-               name="comment" />
+               name="comment"
+               [(ngModel)]="form.comment"
+               #comment="ngModel" />
+        <div class="alert-danger" *ngIf="comment.errors && f.submitted">
+        </div>
       </div>
       <div class="form-group">
         <label for="login">Login</label>
         <input type="text"
                class="form-control"
-               id="login"
-               [(ngModel)]="currentUser.login"
-               name="login" />
+               name="login"
+               [(ngModel)]="form.login"
+               #login="ngModel" />
+        <!-- <div class="alert-danger" *ngIf="login.errors && f.submitted">
+          <div *ngIf="login.errors['required']">Login is required</div>
+        </div> -->
       </div>
       <div class="form-group">
         <label for="password">Password</label>
-        <input type="text"
+        <input type="password"
                class="form-control"
-               id="password"
-               [(ngModel)]="currentUser.password"
-               name="password" />
+               name="password"
+               [(ngModel)]="form.password"
+               #password="ngModel" />
+        <!-- <div class="alert-danger" *ngIf="password.errors && f.submitted">
+          <div *ngIf="password.errors['required']">Password is required</div>
+        </div> -->
       </div>
-    </form>
+    <div class="form-group">
+      <button type="submit"
+      class="badge badge-success mb-2"
+      (click)="checkFields()">
+Update
+</button>
+    </div>
+  </form>
     <button class="badge badge-danger mr-2" (click)="deleteUser()">
       Delete
     </button>
-    <button type="submit"
-            class="badge badge-success mb-2"
-            (click)="updateUser()">
-      Update
-    </button>
-    <button class="badge badge-success mb-2" style="margin-left: 10px;" (click)="toMain()">Return to main page</button>
+    <button class="badge badge-success mb-2" style="margin: 10px;" (click)="toMain()">Home</button>
     <p>{{ message }}</p>
   </div>
 </ng-template>
